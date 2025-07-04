@@ -17,13 +17,14 @@ body {
     align-items: center;
     min-height: 100vh;
     overflow-x: hidden;
-    /* デフォルトでは縦スクロールを禁止 */
-    overflow-y: hidden; 
 }
 
-/* JavaScriptによってこのクラスが付与された時だけスクロールを許可 */
-body.scrollable {
-    overflow-y: auto;
+/* ★★★【変更点】新しいスクロール制御ルール ★★★ */
+/* スマホでも確実にスクロールを禁止するためのルール */
+html.no-scroll,
+body.no-scroll {
+    height: 100%;
+    overflow: hidden;
 }
 
 #game-container {
@@ -58,7 +59,7 @@ body.scrollable {
     text-align: center;
     padding: 20px;
     width: 100%;
-    box-sizing: border-box; /* paddingがwidthに含まれるように設定 */
+    box-sizing: border-box;
 }
 
 /* ===== タイトル・見出し ===== */
@@ -219,7 +220,6 @@ body.scrollable {
 /* ===== レスポンシブ対応（スマホ最適化）===== */
 @media (max-width: 640px) {
     body {
-        /* スマホでは常にalign-items: flex-start にして、診断結果が長い場合に上から表示されるようにする */
         align-items: flex-start;
     }
 

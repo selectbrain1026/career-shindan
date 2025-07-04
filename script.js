@@ -1,5 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // ★★★【変更点】★★★
+    // HTMLとBODY要素を定数として取得
+    const htmlElement = document.documentElement;
+    const bodyElement = document.body;
+
+    // ★★★【変更点】★★★
+    // ページ読み込み完了時に、<html>と<body>の両方にクラスを追加してスクロールを禁止
+    htmlElement.classList.add('no-scroll');
+    bodyElement.classList.add('no-scroll');
+
     // ===== データ定義 =====
     const scores = [0, 0, 0, 0];
     const questions = [
@@ -29,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { text: "決断するときは、論理的な正しさを最も重視する", type: 2, weight: 1 },
         { text: "他人の感情に共感しやすく、影響されやすい", type: 2, weight: -1 },
         { text: "批判や議論を個人的な攻撃と捉えることは少ない", type: 2, weight: 1 },
-        { text: "チームの調わを保つためなら、自分の意見を抑えることもある", type: 2, weight: -1 },
+        { text: "チームの調和を保つためなら、自分の意見を抑えることもある", type: 2, weight: -1 },
         { text: "客観的な事実よりも、当事者の気持ちを優先したい", type: 2, weight: -1 },
         { text: "効率性を重視し、無駄をなくすのが好きだ", type: 2, weight: 1 },
         { text: "相手を傷つける可能性があるなら、真実を言わないこともある", type: 2, weight: -1 },
@@ -126,14 +136,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const resultKey = calculateResult();
             const resultData = resultTypes[resultKey];
             displayResult(resultData);
-            document.body.classList.add('scrollable');
+            
+            // ★★★【変更点】★★★
+            // <html>と<body>の両方からクラスを削除してスクロールを許可
+            htmlElement.classList.remove('no-scroll');
+            bodyElement.classList.remove('no-scroll');
+
             switchScreen('result');
         }, 2000);
     };
 
-    // ★★★【バグ修正】★★★
-    // スコアの計算ロジックを修正し、結果の偏りをなくしました。
-    // スコアが「0」の場合は、E, N, F, P に分類されるようになり、よりバランスの取れた結果が出ます。
     const calculateResult = () => {
         let key = '';
         key += scores[0] > 0 ? 'I' : 'E';
@@ -205,7 +217,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
     const restartGame = () => {
-        document.body.classList.remove('scrollable');
+        // ★★★【変更点】★★★
+        // <html>と<body>の両方にクラスを追加してスクロールを禁止
+        htmlElement.classList.add('no-scroll');
+        bodyElement.classList.add('no-scroll');
+
         window.scrollTo(0, 0);
         switchScreen('start');
     };
