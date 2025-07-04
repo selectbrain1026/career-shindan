@@ -17,6 +17,13 @@ body {
     align-items: center;
     min-height: 100vh;
     overflow-x: hidden;
+    /* デフォルトでは縦スクロールを禁止 */
+    overflow-y: hidden; 
+}
+
+/* JavaScriptによってこのクラスが付与された時だけスクロールを許可 */
+body.scrollable {
+    overflow-y: auto;
 }
 
 #game-container {
@@ -51,6 +58,7 @@ body {
     text-align: center;
     padding: 20px;
     width: 100%;
+    box-sizing: border-box; /* paddingがwidthに含まれるように設定 */
 }
 
 /* ===== タイトル・見出し ===== */
@@ -111,6 +119,7 @@ body {
 #question-text {
     font-size: 1.5rem;
     min-height: 100px;
+    line-height: 1.6;
 }
 #options-container {
     display: flex;
@@ -207,12 +216,46 @@ body {
     margin-bottom: 20px;
 }
 
-/* レスポンシブ対応 */
+/* ===== レスポンシブ対応（スマホ最適化）===== */
 @media (max-width: 640px) {
-    .title, #result-type-name {
-        font-size: 2.2rem;
+    body {
+        /* スマホでは常にalign-items: flex-start にして、診断結果が長い場合に上から表示されるようにする */
+        align-items: flex-start;
     }
+
+    #game-container {
+        margin: 10px;
+        max-width: 100%;
+    }
+
+    .content-wrapper, .result-wrapper {
+        padding: 15px;
+    }
+
+    .title {
+        font-size: 2.5rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    #result-type-name {
+        font-size: 2rem;
+        line-height: 1.3;
+    }
+    
     #question-text {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
+        min-height: 80px;
+    }
+
+    .btn, .option-btn {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+    }
+
+    .result-card {
+        padding: 20px;
     }
 }
