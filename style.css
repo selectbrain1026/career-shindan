@@ -1,0 +1,218 @@
+:root {
+    --primary-color: #0d1b2a;
+    --secondary-color: #1b263b;
+    --accent-color: #415a77;
+    --text-color: #e0e1dd;
+    --highlight-color: #00aeff;
+}
+
+body {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    font-family: 'Noto Sans JP', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+#game-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px;
+    position: relative;
+}
+
+/* ===== 画面切り替えの基本設定 ===== */
+.screen {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+.screen.active {
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+}
+
+.content-wrapper, .result-wrapper {
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+}
+
+/* ===== タイトル・見出し ===== */
+.title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: var(--highlight-color);
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 15px var(--highlight-color);
+}
+.subtitle {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-top: 0;
+}
+
+/* ===== ボタン ===== */
+.btn, .option-btn {
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    border: none;
+    padding: 15px 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    margin-top: 20px;
+}
+.btn:hover, .option-btn:hover {
+    background-color: #5a7b9d;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 174, 255, 0.2);
+}
+
+/* ===== 設問画面 ===== */
+#progress-container {
+    width: 100%;
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    margin-bottom: 30px;
+    position: relative;
+}
+#progress-bar {
+    width: 0%;
+    height: 10px;
+    background-color: var(--highlight-color);
+    border-radius: 10px;
+    transition: width 0.3s ease-in-out;
+}
+#progress-text {
+    position: absolute;
+    right: 15px;
+    top: -25px;
+    font-size: 0.9rem;
+}
+#question-text {
+    font-size: 1.5rem;
+    min-height: 100px;
+}
+#options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+.option-btn {
+    width: 100%;
+    margin: 0;
+    background-color: var(--secondary-color);
+}
+
+/* ===== ローディング画面 ===== */
+.loader {
+    border: 5px solid var(--accent-color);
+    border-top: 5px solid var(--highlight-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1.5s linear infinite;
+    margin-bottom: 20px;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ===== 結果画面 ===== */
+.result-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.result-header {
+    margin-bottom: 20px;
+}
+#result-type-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--highlight-color);
+    margin: 0;
+}
+.result-card {
+    background-color: var(--secondary-color);
+    padding: 25px;
+    border-radius: 15px;
+    text-align: left;
+    border: 1px solid var(--accent-color);
+}
+.result-card h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    color: var(--text-color);
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+.highlight {
+    color: var(--highlight-color);
+    font-weight: bold;
+}
+.keywords-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.keyword-tag {
+    background-color: var(--accent-color);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+#result-jobs {
+    list-style: none;
+    padding-left: 0;
+}
+#result-jobs li {
+    padding: 5px 0;
+}
+#result-jobs li::before {
+    content: '▶';
+    color: var(--highlight-color);
+    margin-right: 10px;
+}
+.chart-container {
+    padding: 20px;
+}
+.final-message {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 640px) {
+    .title, #result-type-name {
+        font-size: 2.2rem;
+    }
+    #question-text {
+        font-size: 1.3rem;
+    }
+}
